@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.BottomNavigationFragment$CreateObavezaFragment">
+
+    <RadioGroup
+        android:id="@+id/radioGroupCreate"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView5">
+
+        <RadioButton
+            android:id="@+id/radioButtonLowCreate"
+            android:layout_width="137dp"
+            android:layout_height="58dp"
+            android:background="@color/low"
+            android:button="@null"
+            android:text="@string/low"
+            android:textAlignment="center"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioButtonMidCreate"
+            android:layout_width="137dp"
+            android:layout_height="58dp"
+            android:background="@color/mid"
+            android:button="@null"
+            android:text="@string/mid"
+            android:textAlignment="center"
+            android:alpha="0.5"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonHighCreate"
+            android:layout_width="137dp"
+            android:layout_height="58dp"
+            android:background="@color/high"
+            android:button="@null"
+            android:text="@string/high"
+            android:textAlignment="center"
+            android:alpha="0.5"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/dateTextView5"
+        android:layout_width="411dp"
+        android:layout_height="56dp"
+        android:background="@color/header"
+        android:textAlignment="center"
+        android:textSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/titleCreateEditText"
+        android:layout_width="332dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupCreate" />
+
+    <EditText
+        android:id="@+id/timeCreateEditText"
+        android:layout_width="332dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="39dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleCreateEditText" />
+
+    <EditText
+        android:id="@+id/descriptionCreateEditText"
+        android:layout_width="332dp"
+        android:layout_height="294dp"
+        android:layout_marginTop="41dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeCreateEditText" />
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="132dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/create"
+        android:backgroundTint="@color/low"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionCreateEditText" />
+
+    <Button
+        android:id="@+id/btnCancelCreate"
+        android:layout_width="132dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:text="@string/cancel"
+        android:backgroundTint="@color/high"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionCreateEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

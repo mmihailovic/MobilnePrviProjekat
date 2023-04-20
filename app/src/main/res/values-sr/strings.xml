@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RAF Dnevnjak</string>
+    <string name="change_password">Promena lozinke</string>
+    <string name="logout">Odjavi se</string>
+    <string name="login">Uloguj se</string>
+    <string name="past_obligations">Prikazi prethodne obaveze</string>
+    <string name="calendar">Kalendar</string>
+    <string name="daily_plan">Dnevni plan</string>
+    <string name="profile">Profil</string>
+    <string name="edit">Izmeni</string>
+    <string name="delete">Obrisi</string>
+    <string name="high">Visok</string>
+    <string name="mid">Srednji</string>
+    <string name="low">Nizak</string>
+    <string name="save">Sacuvaj</string>
+    <string name="cancel">Odustani</string>
+    <string name="create">Kreiraj</string>
+    <string name="friday">Pet.</string>
+    <string name="saturday">Sub.</string>
+    <string name="sunday">Ned.</string>
+    <string name="monday">Pon.</string>
+    <string name="tuesday">Uto.</string>
+    <string name="wednesday">Sre.</string>
+    <string name="thursday">Cet.</string>
+    <string name="password">Sifra</string>
+    <string name="username">Korisnicko ime</string>
+    <string name="email">Imejl</string>
+    <string name="empty_field">Morate popuniti ovo polje</string>
+</resources>

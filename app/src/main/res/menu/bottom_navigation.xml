@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/calendar"
+        android:id="@+id/navigation_1"
+        android:icon="@drawable/baseline_calendar_today_24"
+        />
+    <item android:title="@string/daily_plan"
+        android:id="@+id/navigation_2"
+        android:icon="@drawable/baseline_view_headline_24"
+        />
+    <item android:title="@string/profile"
+        android:id="@+id/navigation_3"
+        android:icon="@drawable/baseline_person_24"/>
+</menu>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.DailyPlanFragment">
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="410dp"
+        android:layout_height="56dp"
+        android:background="@color/header"
+        android:textAlignment="center"
+        android:textSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPastObligations"
+        android:layout_width="85dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+    <TextView
+        android:id="@+id/textViewShowPastObligations"
+        android:layout_width="326dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/past_obligations"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/checkBoxPastObligations"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="411dp"
+        android:layout_height="46dp"
+        android:background="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowPastObligations" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="408dp"
+        android:layout_height="385dp"
+        android:background="@color/background"
+        app:layout_constraintTop_toBottomOf="@+id/btnMid"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:clickable="true"
+        android:src="@drawable/baseline_add_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <ToggleButton
+        android:id="@+id/btnMid"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:textOn="@string/mid"
+        android:textOff="@string/mid"
+        android:background="@color/mid"
+        app:layout_constraintStart_toEndOf="@+id/btnLow"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <ToggleButton
+        android:id="@+id/btnLow"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:textOn="@string/low"
+        android:textOff="@string/low"
+        android:background="@color/low"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <ToggleButton
+        android:id="@+id/btnHigh"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:textOn="@string/high"
+        android:textOff="@string/high"
+        android:background="@color/high"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnMid"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
