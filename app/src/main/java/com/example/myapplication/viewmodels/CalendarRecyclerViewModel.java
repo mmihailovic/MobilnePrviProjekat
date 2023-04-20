@@ -25,6 +25,10 @@ public class CalendarRecyclerViewModel extends ViewModel {
 
         for(int i = -84;i < 84 + brojDanaUMesecu + redniBrojDanaUNedelji - 1; i++) {
             Day day = new Day(date.plusDays(i));
+            if(date.plusDays(i).equals(LocalDate.now())) {
+                day.getObaveze().add(new Obaveza(5, "19:30", "20:00", "Masinsko zadaci", "Domaci", Obaveza.LOW));
+                day.getObaveze().add(new Obaveza(6, "18:30", "19:30", "Mobilne", "Domaci", Obaveza.HIGH));
+            }
             carList.add(day);
         }
         carList.get(0).getObaveze().add(new Obaveza(0,"14:30","15:30","Mobilne","Domaci",Obaveza.HIGH));
@@ -49,10 +53,11 @@ public class CalendarRecyclerViewModel extends ViewModel {
         return carList;
     }
 
-    public void addObaveza(Obaveza obaveza, LocalDate date) {
+    public void addObaveza(int id, String start, String end,String title,String description, int priority,Obaveza obaveza, LocalDate date) {
+        Obaveza car = new Obaveza(id, start,end,title,description,priority);
         for(int i = 0;i < carList.size(); i++) {
             if(carList.get(i).getDate().equals(date)) {
-                carList.get(i).getObaveze().add(obaveza);
+                carList.get(i).getObaveze().add(car);
             }
         }
         List<Day> days = new ArrayList<>(carList);
@@ -76,8 +81,13 @@ public class CalendarRecyclerViewModel extends ViewModel {
         for(int i = 0;i < carList.size(); i++) {
             for(int j = 0;j < carList.get(i).getObaveze().size();j++) {
                 if(carList.get(i).getObaveze().get(j).getId() == id) {
-                    carList.get(i).getObaveze().remove(j);
-                    carList.get(i).getObaveze().add(o);
+//                    carList.get(i).getObaveze().remove(j);
+//                    carList.get(i).getObaveze().add(o);
+                    carList.get(i).getObaveze().get(j).setStart(o.getStart());
+                    carList.get(i).getObaveze().get(j).setEnd(o.getEnd());
+                    carList.get(i).getObaveze().get(j).setTitle(o.getTitle());
+                    carList.get(i).getObaveze().get(j).setPriority(o.getPriority());
+                    carList.get(i).getObaveze().get(j).setDescription(o.getDescription());
                     break;
                 }
             }

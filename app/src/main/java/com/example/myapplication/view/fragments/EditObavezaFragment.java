@@ -112,13 +112,6 @@ public class EditObavezaFragment extends Fragment {
         });
         saveBtn.setOnClickListener(e->{
             Obaveza obaveza = obavezaEditViewModel.getObaveza().getValue();
-            if(highRadioBtn.isChecked())
-                obaveza.setPriority(Obaveza.HIGH);
-            else if(midRadioBtn.isChecked())
-                obaveza.setPriority(Obaveza.MID);
-            else if(lowRadioBtn.isChecked())
-                obaveza.setPriority(Obaveza.LOW);
-
             MainActivity mainActivity = (MainActivity)this.getActivity();
             ObavezaRecyclerViewModel viewModel = (ObavezaRecyclerViewModel)mainActivity.getDailyPlanViewModel();
             String[] time = timeTextView.getText().toString().split("-");
@@ -137,6 +130,12 @@ public class EditObavezaFragment extends Fragment {
                 }
             }
             if(!poklapa) {
+                if(highRadioBtn.isChecked())
+                    obaveza.setPriority(Obaveza.HIGH);
+                else if(midRadioBtn.isChecked())
+                    obaveza.setPriority(Obaveza.MID);
+                else if(lowRadioBtn.isChecked())
+                    obaveza.setPriority(Obaveza.LOW);
                 obaveza.setTitle(titleTextView.getText().toString());
                 obaveza.setDescription(descriptionTextView.getText().toString());
                 obaveza.setStart(time[0]);

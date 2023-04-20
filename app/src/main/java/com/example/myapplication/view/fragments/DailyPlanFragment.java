@@ -28,11 +28,15 @@ import com.example.myapplication.viewmodels.ObavezaRecyclerViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import timber.log.Timber;
 
 public class DailyPlanFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -54,6 +58,8 @@ public class DailyPlanFragment extends Fragment {
     private String date;
 
     private Day day;
+
+    private String searchString;
 
     public DailyPlanFragment() {
         super(R.layout.fragment_daily_plan);
@@ -103,15 +109,7 @@ public class DailyPlanFragment extends Fragment {
             transaction.commit();
         });
         checkBoxPastObligations.setOnClickListener(e->{
-            List<Obaveza> obaveze = recyclerViewModel.getCarList();
-            if(!checkBoxPastObligations.isChecked()) {
-                recyclerViewModel.setObaveze(obaveze.stream().filter((car)-> LocalTime.now().compareTo(LocalTime.parse(car.getEnd())) == -1).collect(Collectors.toList()));
-                //pastObligations = false;
-            }
-            else {
-                recyclerViewModel.setObaveze(obaveze);
-                //pastObligations = true;
-            }
+            filter();
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -122,10 +120,8 @@ public class DailyPlanFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                List<Obaveza> obaveze = recyclerViewModel.getCarList();
-                if(newText.length() > 0)
-                    recyclerViewModel.setObaveze(obaveze.stream().filter((car)-> car.getTitle().toLowerCase().contains(newText.toLowerCase())).collect(Collectors.toList()));
-                else recyclerViewModel.setObaveze(recyclerViewModel.getCarList());
+                searchString = newText;
+                filter();
                 return true;
             }
         });
@@ -133,39 +129,23 @@ public class DailyPlanFragment extends Fragment {
             if(!high.isChecked())
                 high.setAlpha(0.5f);
             else high.setAlpha(1f);
-            List<Obaveza> obaveze = recyclerViewModel.getCarList();
-            if(!high.isChecked() && !mid.isChecked() && !low.isChecked())
-                recyclerViewModel.setObaveze(obaveze);
-            else recyclerViewModel.setObaveze(obaveze.stream().filter((o)->((o.getPriority() == Obaveza.LOW && low.isChecked()) ||
-                    (o.getPriority() == Obaveza.MID && mid.isChecked()) ||
-                    (o.getPriority() == Obaveza.HIGH && high.isChecked()))).collect(Collectors.toList()));
+            filter();
         });
         mid.setOnClickListener(e->{
             if(!mid.isChecked())
                 mid.setAlpha(0.5f);
             else mid.setAlpha(1f);
-            List<Obaveza> obaveze = recyclerViewModel.getCarList();
-            if(!high.isChecked() && !mid.isChecked() && !low.isChecked())
-                recyclerViewModel.setObaveze(obaveze);
-            else recyclerViewModel.setObaveze(obaveze.stream().filter((o)->((o.getPriority() == Obaveza.LOW && low.isChecked()) ||
-                    (o.getPriority() == Obaveza.MID && mid.isChecked()) ||
-                    (o.getPriority() == Obaveza.HIGH && high.isChecked()))).collect(Collectors.toList()));
+            filter();
         });
         low.setOnClickListener(e->{
             if(!low.isChecked())
                 low.setAlpha(0.5f);
             else low.setAlpha(1f);
-            List<Obaveza> obaveze = recyclerViewModel.getCarList();
-            if(!high.isChecked() && !mid.isChecked() && !low.isChecked())
-                recyclerViewModel.setObaveze(obaveze);
-            else recyclerViewModel.setObaveze(obaveze.stream().filter((o)->((o.getPriority() == Obaveza.LOW && low.isChecked()) ||
-                    (o.getPriority() == Obaveza.MID && mid.isChecked()) ||
-                    (o.getPriority() == Obaveza.HIGH && high.isChecked()))).collect(Collectors.toList()));
+            filter();
         });
     }
     private void initRecycler() {
         obavezeAdapter = new ObavezaAdapter(new ObavezaItemDiffCallback(), car -> {
-            Toast.makeText(this.getActivity(), car.getId() + "", Toast.LENGTH_SHORT).show();
             MainActivity mainActivity = ((MainActivity)this.getActivity());
 
             FragmentTransaction transaction = mainActivity.getSupportFragmentManager().beginTransaction();
@@ -193,6 +173,41 @@ public class DailyPlanFragment extends Fragment {
             dateTextView.setText(recyclerViewModel.getDate().getValue().format(formatter));
         });
     }
+
+    private void filter() {
+        List<Obaveza> obaveze = recyclerViewModel.getCarList();
+        List<Obaveza> filteredObaveza = new ArrayList<>();
+        for(Obaveza o: obaveze) {
+            boolean priorityCheck = true;
+            boolean textCheck = true;
+            boolean timeCheck = true;
+            if(!high.isChecked() && !mid.isChecked() && !low.isChecked())
+                priorityCheck = true;
+            else {
+                if((o.getPriority() == Obaveza.LOW && low.isChecked()) ||
+                        (o.getPriority() == Obaveza.MID && mid.isChecked()) ||
+                        (o.getPriority() == Obaveza.HIGH && high.isChecked()))
+                    priorityCheck = true;
+                else priorityCheck = false;
+            }
+            Timber.e(searchString);
+            if(searchString != null && searchString.length() > 0) {
+                if(!o.getTitle().toLowerCase().contains(searchString.toLowerCase()))
+                    textCheck = false;
+            }
+            if(!checkBoxPastObligations.isChecked()) {
+                if(LocalDate.now().isBefore(recyclerViewModel.getDate().getValue()) || (LocalDate.now().equals(recyclerViewModel.getDate().getValue()) && LocalTime.now().compareTo(LocalTime.parse(o.getEnd())) == -1)){
+                    timeCheck = true;
+                }
+                else timeCheck = false;
+            }
+            Timber.e("priorityCheck " + priorityCheck + " timeCheck " + timeCheck + " textCheck " + textCheck);
+            if(priorityCheck && textCheck && timeCheck)
+                filteredObaveza.add(o);
+        }
+        recyclerViewModel.setObaveze(filteredObaveza);
+    }
+
 
     public void setDay(Day day) {
         this.day = day;

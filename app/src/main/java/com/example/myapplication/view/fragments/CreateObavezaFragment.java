@@ -134,8 +134,8 @@ public class CreateObavezaFragment extends Fragment {
                 obaveza.setStart(time[0]);
                 obaveza.setEnd(time[1]);
                 Toast.makeText(mainActivity, "Uspesno ste izmenili podatke", Toast.LENGTH_SHORT).show();
-                ((ObavezaRecyclerViewModel) viewModel).addCar(obaveza);
-                ((CalendarRecyclerViewModel) ((MainActivity) this.getActivity()).getCalendarViewModel()).addObaveza(obaveza, date);
+                int id = ((ObavezaRecyclerViewModel) viewModel).addCar(time[0],time[1],titleTextView.getText().toString(),descriptionTextView.getText().toString(), obaveza.getPriority(), obaveza);
+                ((CalendarRecyclerViewModel) ((MainActivity) this.getActivity()).getCalendarViewModel()).addObaveza(id, time[0],time[1],titleTextView.getText().toString(),descriptionTextView.getText().toString(), obaveza.getPriority(),obaveza, date);
                 ((RecyclerView) ((MainActivity) this.getActivity()).getCalendarRecyclerView()).getAdapter().notifyDataSetChanged();
                 this.getActivity().onBackPressed();
             }

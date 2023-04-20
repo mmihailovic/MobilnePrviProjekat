@@ -70,7 +70,6 @@ public class CalendarFragment extends Fragment{
         dayAdapter = new DayAdapter(new DayItemDiffCallback(), car -> {
 //            Toast.makeText(this.getActivity(), car.getDate() + "", Toast.LENGTH_SHORT).show();
             BottomNavigationView bottomNavigationView = this.getActivity().findViewById(R.id.bottomNavigation);
-            bottomNavigationView.findViewById(R.id.navigation_2).performClick();
 //            ((MainActivity)this.getActivity()).getViewPager().setCurrentItem(PagerAdapter.FRAGMENT_2);
             MainActivity mainActivity = ((MainActivity)this.getActivity());
             ObavezaRecyclerViewModel viewModel = (ObavezaRecyclerViewModel) mainActivity.getDailyPlanViewModel();
@@ -78,6 +77,7 @@ public class CalendarFragment extends Fragment{
             viewModel.setObaveze(listToSubmit);
             viewModel.setDate(car.getDate());
             viewModel.setCarList((ArrayList<Obaveza>) listToSubmit);
+            bottomNavigationView.findViewById(R.id.navigation_2).performClick();
             },calendarRecyclerViewModel);
         int position = 0;
         for(int i = 0;i < calendarRecyclerViewModel.getCarList().size(); i++) {

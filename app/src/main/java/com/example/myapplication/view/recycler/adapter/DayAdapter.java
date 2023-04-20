@@ -77,10 +77,9 @@ public class DayAdapter extends ListAdapter<Day,DayAdapter.ViewHolder> {
                     midCount++;
                 else lowCount++;
             }
-            int max = max(max(highCount,midCount),lowCount);
-            if(max == 0) itemView.setBackgroundColor(context.getResources().getColor(R.color.date, context.getTheme()));
-            else if(max == highCount)itemView.setBackgroundColor(context.getResources().getColor(R.color.high, context.getTheme()));
-            else if(max == midCount)itemView.setBackgroundColor(context.getResources().getColor(R.color.mid, context.getTheme()));
+            if(highCount == 0 && midCount == 0 && lowCount == 0) itemView.setBackgroundColor(context.getResources().getColor(R.color.date, context.getTheme()));
+            else if(highCount > 0)itemView.setBackgroundColor(context.getResources().getColor(R.color.high, context.getTheme()));
+            else if(midCount > 0)itemView.setBackgroundColor(context.getResources().getColor(R.color.mid, context.getTheme()));
             else itemView.setBackgroundColor(context.getResources().getColor(R.color.low, context.getTheme()));
         }
 

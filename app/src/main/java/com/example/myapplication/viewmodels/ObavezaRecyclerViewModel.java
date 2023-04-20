@@ -41,6 +41,12 @@ public class ObavezaRecyclerViewModel extends ViewModel {
 
     public void setObaveze(List<Obaveza> obaveze) {
         List<Obaveza> oba = new ArrayList<>(obaveze);
+        oba.sort(new Comparator<Obaveza>() {
+            @Override
+            public int compare(Obaveza obaveza, Obaveza t1) {
+                return LocalTime.parse(obaveza.getStart()).compareTo(LocalTime.parse(t1.getStart()));
+            }
+        });
         this.cars.setValue(oba);
         for(Obaveza o: cars.getValue()) {
             Log.d("Obaveza", o.getTitle());
@@ -58,10 +64,10 @@ public class ObavezaRecyclerViewModel extends ViewModel {
         this.carList = carList;
     }
 
-    public int addCar(Obaveza obaveza) {
+    public int addCar(String start, String end,String title,String description, int priority,Obaveza obaveza) {
         int id = counter++;
-//        Obaveza car = new Obaveza(id, "14:30","15:30","Mobilne","Domaci",Obaveza.HIGH);
-        carList.add(obaveza);
+        Obaveza car = new Obaveza(id, start,end,title,description,priority);
+        carList.add(car);
         carList.sort(new Comparator<Obaveza>() {
             @Override
             public int compare(Obaveza obaveza, Obaveza t1) {
@@ -87,8 +93,13 @@ public class ObavezaRecyclerViewModel extends ViewModel {
     public void updateObaveza(Obaveza o, int id) {
         Optional<Obaveza> carObject = carList.stream().filter(obaveza-> obaveza.getId() == id).findFirst();
         if (carObject.isPresent()) {
-            carList.remove(carObject.get());
-            carList.add(o);
+//            carList.remove(carObject.get());
+//            carList.add(o);
+            carObject.get().setStart(o.getStart());
+            carObject.get().setEnd(o.getEnd());
+            carObject.get().setTitle(o.getTitle());
+            carObject.get().setPriority(o.getPriority());
+            carObject.get().setDescription(o.getDescription());
             ArrayList<Obaveza> listToSubmit = new ArrayList<>(carList);
             setObaveze(listToSubmit);
         }

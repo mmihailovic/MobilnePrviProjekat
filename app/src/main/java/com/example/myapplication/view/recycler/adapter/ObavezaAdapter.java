@@ -26,6 +26,7 @@ import com.example.myapplication.viewmodels.CalendarRecyclerViewModel;
 import com.example.myapplication.viewmodels.ObavezaRecyclerViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.function.Consumer;
 
@@ -75,7 +76,12 @@ public class ObavezaAdapter extends ListAdapter<Obaveza, ObavezaAdapter.ViewHold
             if(obaveza.getPriority() == Obaveza.HIGH) imageView.setBackgroundColor(context.getResources().getColor(R.color.high, context.getTheme()));
             else if(obaveza.getPriority() == Obaveza.MID) imageView.setBackgroundColor(context.getResources().getColor(R.color.mid, context.getTheme()));
             else imageView.setBackgroundColor(context.getResources().getColor(R.color.low, context.getTheme()));
-            if(LocalTime.now().compareTo(LocalTime.parse(obaveza.getEnd())) == 1) itemView.setBackgroundColor(context.getResources().getColor(R.color.gray, context.getTheme()));
+
+            LocalDate date = ((ObavezaRecyclerViewModel)viewModel).getDate().getValue();
+            if(LocalDate.now().isAfter(date))itemView.setBackgroundColor(context.getResources().getColor(R.color.gray, context.getTheme()));
+            else if(LocalDate.now().equals(date) && LocalTime.now().compareTo(LocalTime.parse(obaveza.getEnd())) == 1) itemView.setBackgroundColor(context.getResources().getColor(R.color.gray, context.getTheme()));
+            else itemView.setBackgroundColor(context.getResources().getColor(R.color.background, context.getTheme()));
+
 //            Glide
 //                    .with(context)
 //                    .load(obaveza.getPicture())
